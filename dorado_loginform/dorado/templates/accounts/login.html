@@ -1,0 +1,49 @@
+{% extends "accounts/base.html" %}
+{% block title %}Log in · Dorado{% endblock %}
+{% block panel_label %}01 / LOG IN{% endblock %}
+{% block crumb %}LOGIN ACCOUNT{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h1>Welcome back</h1>
+  <p class="card__sub">Enter your details to log in.</p>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    {% if form.non_field_errors %}
+      <p class="alert">{{ form.non_field_errors.0 }}</p>
+    {% endif %}
+
+    <div class="field">
+      <label for="{{ form.username.id_for_label }}">Email address</label>
+      {{ form.username }}
+      {% for e in form.username.errors %}<p class="field__error">{{ e }}</p>{% endfor %}
+    </div>
+
+    <div class="field">
+      <label for="{{ form.password.id_for_label }}">Password</label>
+      {{ form.password }}
+      {% for e in form.password.errors %}<p class="field__error">{{ e }}</p>{% endfor %}
+    </div>
+
+    <div class="row">
+      <label class="check">
+        {{ form.remember_me }}
+        <span class="check__box"></span>
+        <span>Remember me</span>
+      </label>
+      <a href="#" class="link link--bold">Forgot password?</a>
+    </div>
+
+    <button type="submit" class="btn btn--primary">Login</button>
+
+    <div class="or"><span>or</span></div>
+
+    <a href="#" class="btn btn--ghost">Continue with Google</a>
+
+    <p class="switch">Don't have an account? <a href="{% url 'register' %}">Create an account</a></p>
+  </form>
+</section>
+{% endblock %}

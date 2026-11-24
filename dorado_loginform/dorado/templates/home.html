@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Dorado</title></head>
+<body style="font-family:Inter,sans-serif;padding:48px">
+  <h1>Welcome, {{ request.user.first_name|default:request.user.email }}</h1>
+  <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Log out</button></form>
+</body></html>
